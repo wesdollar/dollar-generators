@@ -11,15 +11,14 @@
     "commander": "^8.1.0",
     "dotenv": "^10.0.0",
     "dotenv-flow": "^3.2.0",
-    "version-bump": "^0.1.0",
     "yargs": "^17.1.1",
     "yargs-parser": "^20.2.9"
   },
   "scripts": {
     "publish": "npm publish --access public",
-    "bump": "version-bump cli --bump",
-    "minor": "version-bump cli --bump minor",
-    "major": "version-bump cli --bump major"
+    "bump": "npm version patch",
+    "minor": "npm version minor",
+    "major": "npm version major"
   },
   "author": "Wes Dollar",
   "license": "MIT",

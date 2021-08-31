@@ -33,8 +33,8 @@
   "scripts": {
     "develop": "nodemon start",
     "debug": "nodemon --inspect server.js",
-    "bump": "version-bump cli --bump",
-    "minor": "version-bump cli --bump minor",
-    "major": "version-bump cli --bump major"
+    "bump": "npm version patch",
+    "minor": "npm version minor",
+    "major": "npm version major"
   }
 }
