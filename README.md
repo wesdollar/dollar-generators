@@ -8,7 +8,9 @@ option | shortcut | description
 ---|--- | ---
 --path | -p | installation path (relative)
 
+&nbsp;
 __Examples__
+&nbsp;
 `dg express`
 Installs in current working directory (`./`)
 
