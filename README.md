@@ -7,14 +7,14 @@ CLI to scaffold an Express service.
 option | shortcut | description
 ---|--- | ---
 --path | -p | installation path (relative)
+<br />
 
-&nbsp;
 __Examples__
-&nbsp;
-`dg express`
+<br />
+`dg express`<br />
 Installs in current working directory (`./`)
 
-`dg express -p test`
+`dg express -p test`<br />
 Installs in `test` directory inside current working directory (`./tests`)
 
 ---
