@@ -11,7 +11,6 @@
     "commander": "^8.1.0",
     "dotenv": "^10.0.0",
     "dotenv-flow": "^3.2.0",
-    "g": "^2.0.1",
     "version-bump": "^0.1.0",
     "yargs": "^17.1.1",
     "yargs-parser": "^20.2.9"
