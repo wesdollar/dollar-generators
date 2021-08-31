@@ -1,6 +1,6 @@
 {
   "name": "@dollarcode/dollar-generators",
-  "version": "1.1.8",
+  "version": "1.1.12",
   "description": "generate project boilerplates",
   "main": "dg.js",
   "bin": {
@@ -26,5 +26,10 @@
   "license": "MIT",
   "devDependencies": {
     "prettier": "^2.3.2"
-  }
+  },
+  "keywords": [
+    "generator",
+    "express",
+    "yeoman"
+  ]
 }

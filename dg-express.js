@@ -76,7 +76,7 @@ const createServer = () => {
                     log(chalk.red("could not install packages"));
                   }
 
-                  log(chalk.blue("packages install successfully"));
+                  log(chalk.blue("npm packages install successfully"));
                 }
               );
             }
