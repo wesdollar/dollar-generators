@@ -14,9 +14,11 @@ Scaffolds for things we do everyday as devs.
 * Create React component
 
 __Express__
+
 option | shortcut | description
 ---|--- | ---
 --path | -p | installation path (relative)
+
 <br />
 
 `dg express`<br />
@@ -26,9 +28,11 @@ Installs in current working directory (`./`)
 Installs in `test` directory inside current working directory (`./tests`)
 
 __React__
+
 option | shortcut | description
 ---|--- | ---
 --path | -p | installation path (relative)
+
 <br />
 
 Pass desired component name as second argument.
