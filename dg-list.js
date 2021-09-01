@@ -9,5 +9,5 @@ program.parse();
 log(chalk.inverse(`Dollar Generators`));
 log("");
 log(chalk.blue(`express [node express service]`));
+log(chalk.blue(`react [react component]`));
 log("");
-log(chalk.bgBlue(`npx dg express`));
