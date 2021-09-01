@@ -6,6 +6,7 @@ program
   .version(version)
   .description(description)
   .command("express", "scaffold express project")
+  .command("react", "scaffold react component")
   .command("list", "list available generators", { isDefault: true });
 
 program.parse(process.argv);
