@@ -37,7 +37,7 @@ option | shortcut | description
 
 Pass desired component name as second argument.
 
-`dg react my-component -p test/component`
+`dg react my-component -p test/component`<br />
 Creates React component without TypeScript
 
 ---
