@@ -1,3 +1,9 @@
+<div align="center">
+
+![Dollar Generators](icon-144.png)
+
+</div>
+
 ### Dollar Generators
 
 CLI to scaffold an Express service.
