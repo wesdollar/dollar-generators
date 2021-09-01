@@ -9,7 +9,7 @@ const fs = require("fs");
 program
   .argument("<name>", "component name")
   .option("-p, --path <path>", "install path")
-  .action((name, options, command) => {
+  .action((name, options) => {
     name = capitalize(name);
 
     const content = `import React from "react";
@@ -28,7 +28,7 @@ ${name}.defaultProps = {};
     const installPath = options.path
       ? `${__dirname}/${options.path}`
       : `${__dirname}`;
-    const file = `${installPath}}/${name}.jsx`;
+    const file = `${installPath}/${name}.jsx`;
 
     fs.mkdirSync(installPath, { recursive: true });
 
