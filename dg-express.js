@@ -45,7 +45,7 @@ const makeDirectories = (array, installPath) => {
         return log(chalk.red(`could not create directory ${directory}`));
       }
 
-      return log(chalk.blue(`create ${installPath}/${directory}`));
+      return log(chalk.blue(`created ${installPath}/${directory}`));
     });
   });
 };
@@ -105,7 +105,7 @@ const createServer = () => {
                     log(chalk.red("could not install packages"));
                   }
 
-                  log(chalk.blue("npm packages install successfully"));
+                  log(chalk.blue("npm packages installed successfully"));
                 }
               );
             }

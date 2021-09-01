@@ -18,7 +18,8 @@
     "publish": "npm publish --access public",
     "bump": "npm version patch",
     "minor": "npm version minor",
-    "major": "npm version major"
+    "major": "npm version major",
+    "update": "npm i -g @dollarcode/dollar-generators"
   },
   "author": "Wes Dollar",
   "license": "MIT",
