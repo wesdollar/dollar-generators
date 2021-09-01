@@ -12,6 +12,17 @@ program.parse(process.argv);
 
 const options = program.opts();
 
+const rootDirectories = [
+  "constants",
+  "data-transformers",
+  "helpers",
+  "middleware",
+  "routes",
+  "public",
+];
+
+const publicDirectories = ["public/icons", "public/img", "public/svg"];
+
 const copyFile = (file, destinationFile) => {
   fs.copyFile(`${file}`, `${destinationFile}`, (err) => {
     if (err) {
@@ -19,9 +30,23 @@ const copyFile = (file, destinationFile) => {
       log(chalk.red(`could not create ${file}`));
       log(chalk.yellow(err));
 
-      return;
+      return false;
     }
     return log(chalk.blue(`created ${destinationFile}`));
+  });
+};
+
+const makeDirectories = (array, installPath) => {
+  array.map((directory) => {
+    fs.mkdir(`${installPath}/${directory}`, { recursive: true }, (err) => {
+      if (err) {
+        log("");
+        log(chalk.red(err));
+        return log(chalk.red(`could not create directory ${directory}`));
+      }
+
+      return log(chalk.blue(`create ${installPath}/${directory}`));
+    });
   });
 };
 
@@ -66,6 +91,10 @@ const createServer = () => {
                 ("could not create package.json");
               }
 
+              log("");
+              log(chalk.white(`installing node packages...`));
+              log("");
+
               exec(
                 "npm i",
                 {
@@ -87,6 +116,9 @@ const createServer = () => {
       }
     });
   });
+
+  makeDirectories(rootDirectories, installPath);
+  makeDirectories(publicDirectories, installPath);
 };
 
 createServer();
