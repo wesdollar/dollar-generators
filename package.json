@@ -32,5 +32,9 @@
     "generator",
     "express",
     "yeoman"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wesdollar/dollar-generators.git"
+  }
 }
