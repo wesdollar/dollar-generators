@@ -7,6 +7,7 @@ program
   .description(description)
   .command("express", "scaffold express project")
   .command("react", "scaffold react component")
+  .command("cra", "Create React App plus goodies")
   .command("list", "list available generators", { isDefault: true });
 
 program.parse(process.argv);

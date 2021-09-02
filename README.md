@@ -1,4 +1,4 @@
-<div align="center">
+<div>
 
 ![Dollar Generators](icon-144.png)
 
@@ -29,6 +29,12 @@ Installs in `test` directory inside current working directory (`./tests`)
 
 __React__
 
+`dg cra project-name`<br />
+Creates a React project using Create React App. Like CRA, this installs your project in a directory of the same name as the argument provided ("project-name" in the example above).
+
+`dg react my-component -p test/component`<br />
+Creates React component without TypeScript
+
 option | shortcut | description
 ---|--- | ---
 --path | -p | installation path (relative)
@@ -36,9 +42,6 @@ option | shortcut | description
 <br />
 
 Pass desired component name as second argument.
-
-`dg react my-component -p test/component`<br />
-Creates React component without TypeScript
 
 ---
 More generators coming soon!
