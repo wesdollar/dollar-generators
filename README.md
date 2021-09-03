@@ -12,6 +12,7 @@ Scaffolds for things we do everyday as devs.
 
 * Generate an Express service
 * Create React component
+* Configure VS Code
 
 __Express__
 
@@ -42,6 +43,22 @@ option | shortcut | description
 <br />
 
 Pass desired component name as second argument.
+
+__Configure VS Code__
+
+`dg vscode`<br />
+Creates a `.vscode` directory inside the current working directory.
+
+These files are generated:
+
+- `extensions.json` for recommending and blocking extensions
+- `launch.json` to configure node and nodemon debugging
+- `settings.json` configures VS Code settings, including auto-formatting
+- `spellright.dict` dictionary for spellright
+
+Alright, now lets talk about the `settings.json`. The settings provided are fairly opinionated in terms of linting and auto-formatting. You can obviously modify these rules however you see fit, but I felt the need to give you a heads up.
+
+Good news, though – the Prettier config used for auto-formatting is completely stock (ie: default settings). The linting rules, however, are definitely to my personal taste.
 
 ---
 More generators coming soon!
