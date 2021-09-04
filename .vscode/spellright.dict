@@ -28,3 +28,5 @@ BUGSNAG
 nodemon
 spellright
 linting
+ts
+tsx
