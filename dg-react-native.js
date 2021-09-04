@@ -5,6 +5,7 @@ const { kebabCase, camelCase, upperFirst } = require("lodash");
 const chalk = require("chalk");
 const log = console.log;
 const fs = require("fs");
+const { cwd } = require("process");
 
 const generateComponent = (componentName) => {
   return `import * as React from "react";
@@ -71,7 +72,7 @@ program
   .action((name) => {
     name = upperFirst(camelCase(name));
     const fileName = kebabCase(name);
-    const installPath = `${__dirname}/${fileName}`;
+    const installPath = `${cwd()}/${fileName}`;
 
     fs.mkdirSync(installPath, { recursive: true });
     writeFile(`${installPath}/${fileName}.tsx`, () => generateComponent(name));
