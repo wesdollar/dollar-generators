@@ -15,7 +15,7 @@ interface ${componentName}Props {
   children: React.ReactNode;
 }
 
-export const ${componentName}: React.ReactNode = ({ children }: ${componentName}Props) => {
+export const ${componentName} = ({ children }: ${componentName}Props) => {
   return <View data-testid={\`${componentName}-container\`}>{children}</View>;
 };
 `;
