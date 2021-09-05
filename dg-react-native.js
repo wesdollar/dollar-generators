@@ -25,16 +25,17 @@ const generateTest = (componentName) => {
   const fileName = kebabCase(componentName);
 
   return `import * as React from "react";
-import { Basic${componentName} } from "./${fileName}.composition";
-import renderer from "react-test-renderer";
+import { Basic${componentName} } from "./${filename}.composition";
+import { render } from "@testing-library/react-native";
 
 it("should render", () => {
-  const tree: any = renderer.create(<Basic${componentName} />).toJSON();
-  expect(tree?.props["data-testid"]).toEqual("${componentName}-container");
+  const { getByTestId } = render(<Basic${componentName} />);
+  const component = getByTestId("${componentName}-container");
+  expect(component).toBeTruthy();
 });
 
 it("matches snapshot", () => {
-  const tree: any = renderer.create(<Basic${componentName} />).toJSON();
+  const tree: any = render(<Basic${componentName} />);
   expect(tree).toMatchSnapshot();
 });`;
 };
