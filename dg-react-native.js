@@ -25,7 +25,7 @@ const generateTest = (componentName) => {
   const fileName = kebabCase(componentName);
 
   return `import * as React from "react";
-import { Basic${componentName} } from "./${filename}.composition";
+import { Basic${componentName} } from "./${fileName}.composition";
 import { render } from "@testing-library/react-native";
 
 it("should render", () => {
