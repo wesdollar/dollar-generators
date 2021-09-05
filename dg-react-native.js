@@ -16,7 +16,7 @@ interface ${componentName}Props {
 }
 
 export const ${componentName} = ({ children }: ${componentName}Props) => {
-  return <View data-testid={\`${componentName}-container\`}>{children}</View>;
+  return <View testID={\`${componentName}-container\`}>{children}</View>;
 };
 `;
 };
