@@ -54,6 +54,15 @@ const generateIndex = (componentName) => {
   `;
 };
 
+const generateConstants = (componentName) => {
+  const lcName = camelCase(componentName);
+
+  return `export const ${lcName}Constants = {
+  testID: "componentName",
+};
+`;
+};
+
 const writeFile = (file, generateFunc) => {
   const content = generateFunc();
 
@@ -81,6 +90,9 @@ program
       generateComp(name)
     );
     writeFile(`${installPath}/${fileName}.spec.tsx`, () => generateTest(name));
+    writeFile(`${installPath}/${fileName}.constants.tsx`, () =>
+      generateConstants(name)
+    );
     writeFile(`${installPath}/index.ts`, () => generateIndex(name));
   });
 
