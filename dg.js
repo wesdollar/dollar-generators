@@ -8,6 +8,7 @@ program
   .command("express", "scaffold express project")
   .command("react-native", "scaffold react native w/ TS")
   .alias("rn")
+  .command("rn-doc", "generate RN docs for Docusaurus")
   .command("react", "scaffold react component")
   .command("cra", "Create React App plus goodies")
   .command("vscode", "add .vscode directory (opinionated)")
