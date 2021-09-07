@@ -56,7 +56,7 @@ const generateAction = (compId) => {
   const fileName = `${compId}.md`;
   const file = `${docPath}/${fileName}`;
   let [directory] = file.split(fileName);
-  directory = `./docs/docs`;
+  directory = `docs/docs`;
 
   const docsSrc = path.relative(directory, "docs/src");
   const componentPath = path.relative(compId, docsSrc);
@@ -93,7 +93,13 @@ ${parseTypes(comp)}
 `;
 
   if (!fs.existsSync(directory)) {
-    fs.mkdirSync(directory, { recursive: true });
+    fs.mkdirSync(directory, { recursive: true }, (err) => {
+      if (err) {
+        return console.error("could not create directory ", directory);
+      }
+
+      console.log(chalk.blue(`created ${directory}`));
+    });
   }
 
   fs.writeFile(file, content, (err) => {
