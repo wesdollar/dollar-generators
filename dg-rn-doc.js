@@ -25,7 +25,7 @@ const parseTypes = (docs) => {
 
     returns.push(
       // prettier-ignore
-      `| \`${propName}${required && "?"}\`  | \`${type}\` | ${propDescription} | ${defaultValue} |
+      `| \`${propName}${required}\`  | \`${type}\` | ${propDescription} | ${defaultValue} |
 `
     );
   }
