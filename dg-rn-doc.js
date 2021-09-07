@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 const { Command } = require("commander");
 const program = new Command();
-const { startCase, camelCase, upperFirst, escape } = require("lodash");
+const { startCase } = require("lodash");
 const util = require("util");
 const docgen = require("react-docgen-typescript");
 const fs = require("fs");
 const log = console.log;
 const chalk = require("chalk");
 const { cwd } = require("process");
+const path = require("path");
 
 const generateAction = (compId) => {
-  const docPath = `${cwd()}/docs`;
+  const docPath = `./docs`;
 
   const options = {
     savePropValueAsString: true,
@@ -19,7 +20,7 @@ const generateAction = (compId) => {
   let comp;
 
   try {
-    [comp] = docgen.parse(`${cwd()}/${compId}.tsx`, options);
+    [comp] = docgen.parse(`./${compId}.tsx`, options);
   } catch (error) {
     return console.error(
       chalk.red(`could not find ${compId}. remember to run from project root!`)
@@ -50,7 +51,15 @@ const generateAction = (compId) => {
   };
 
   const getComponentDescription = (docs) => docs.description;
-  const componentName = docs.displayName;
+  const componentName = comp.displayName;
+
+  const fileName = `${compId}.md`;
+  const file = `${docPath}/${fileName}`;
+  let [directory] = file.split(fileName);
+  directory = `./docs/docs`;
+
+  const docsSrc = path.relative(directory, "docs/src");
+  const componentPath = path.relative(compId, docsSrc);
 
   const content = `---
 sidebar_label: "${startCase(componentName)}"
@@ -58,12 +67,12 @@ sidebar_position: 1
 title: ${startCase(componentName)}
 ---
 
-import {PropBlock} from "${docPath}/src/components/PropBlock"
-import {RenderTypes} from "${docPath}/src/components/RenderTypes"
-import {SectionHeader} from "${docPath}/src/components/SectionHeader"
+import {PropBlock} from "${docsSrc}/components/PropBlock"
+import {RenderTypes} from "${docsSrc}/components/RenderTypes"
+import {SectionHeader} from "${docsSrc}/components/SectionHeader"
 import {Space} from "@wesdollar/dollar-ui.ui.space"
 import CodeBlock from '@theme/CodeBlock';
-import ${componentPascalName} from '!!raw-loader!${cwd()}/${compId}';
+import ${componentName} from '!!raw-loader!${componentPath}/${compId}';
 
 ${getComponentDescription(comp)}
 
@@ -83,7 +92,9 @@ ${parseTypes(comp)}
 <CodeBlock className="language-jsx">{${componentName}}</CodeBlock>
 `;
 
-  const file = `${docPath}/${compId}.md`;
+  if (!fs.existsSync(directory)) {
+    fs.mkdirSync(directory, { recursive: true });
+  }
 
   fs.writeFile(file, content, (err) => {
     if (err) {
