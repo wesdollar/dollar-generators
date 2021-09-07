@@ -93,10 +93,7 @@ sidebar_position: 1
 title: ${startCase(componentName)}
 ---
 
-import {PropBlock} from "${relativeSrcPath}/components/PropBlock"
-import {RenderTypes} from "${relativeSrcPath}/components/RenderTypes"
 import {SectionHeader} from "${relativeSrcPath}/components/SectionHeader"
-import {Space} from "@wesdollar/dollar-ui.ui.space"
 import CodeBlock from '@theme/CodeBlock';
 import ${componentName} from '!!raw-loader!${relativeCompPath}/${getComponentFileName(
     compId,
