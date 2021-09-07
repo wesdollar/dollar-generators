@@ -102,6 +102,10 @@ import ${componentName} from '!!raw-loader!${relativeCompPath}/${getComponentFil
     compId,
     ""
   )}';
+import Basic${componentName} from '!!raw-loader!${relativeCompPath}/${getComponentFileName(
+    compId,
+    ".composition"
+  )}';
 
 ${getComponentDescription(comp)}
 
@@ -111,11 +115,8 @@ ${getComponentDescription(comp)}
 | ---------- | -------------- | ----------- | ------- |
 ${parseTypes(comp)}
 
-<SectionHeader>Example</SectionHeader>
-
-\`\`\`jsx
-<${componentName}>Button Label</${componentName}>
-\`\`\`
+<SectionHeader>Example Composition</SectionHeader>
+<CodeBlock className="language-tsx">{Basic${componentName}}</CodeBlock>
 
 <SectionHeader>Code Behind</SectionHeader>
 <CodeBlock className="language-jsx">{${componentName}}</CodeBlock>
