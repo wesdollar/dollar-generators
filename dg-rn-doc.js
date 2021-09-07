@@ -9,12 +9,23 @@ const log = console.log;
 const chalk = require("chalk");
 const { cwd } = require("process");
 
-const generateAction = (name) => {
+const generateAction = (compId) => {
+  const docPath = `${cwd()}/docs`;
+
   const options = {
     savePropValueAsString: true,
   };
 
-  const [comp] = docgen.parse(`${cwd()}/primary-button.tsx`, options);
+  let comp;
+
+  try {
+    [comp] = docgen.parse(`${cwd()}/${compId}.tsx`, options);
+  } catch (error) {
+    return console.error(
+      chalk.red(`could not find ${compId}. remember to run from project root!`)
+    );
+  }
+  // TODO: remove console.log
   // console.log(util.inspect(comp, false, null, true));
 
   const parseTypes = (docs) => {
@@ -39,9 +50,7 @@ const generateAction = (name) => {
   };
 
   const getComponentDescription = (docs) => docs.description;
-
-  const componentName = name;
-  const componentPascalName = upperFirst(camelCase(componentName));
+  const componentName = docs.displayName;
 
   const content = `---
 sidebar_label: "${startCase(componentName)}"
@@ -49,12 +58,12 @@ sidebar_position: 1
 title: ${startCase(componentName)}
 ---
 
-import {PropBlock} from "../../../src/components/PropBlock"
-import {RenderTypes} from "../../../src/components/RenderTypes"
+import {PropBlock} from "${docPath}/src/components/PropBlock"
+import {RenderTypes} from "${docPath}/src/components/RenderTypes"
+import {SectionHeader} from "${docPath}/src/components/SectionHeader"
 import {Space} from "@wesdollar/dollar-ui.ui.space"
-import {SectionHeader} from "../../../src/components/SectionHeader"
 import CodeBlock from '@theme/CodeBlock';
-import ${componentPascalName} from '!!raw-loader!../../../../prog-anywhere/primitives/buttons/${componentName}/${componentName}';
+import ${componentPascalName} from '!!raw-loader!${cwd()}/${compId}';
 
 ${getComponentDescription(comp)}
 
@@ -67,14 +76,14 @@ ${parseTypes(comp)}
 <SectionHeader>Example</SectionHeader>
 
 \`\`\`jsx
-<${componentPascalName}>Button Label</${componentPascalName}>
+<${componentName}>Button Label</${componentName}>
 \`\`\`
 
 <SectionHeader>Code Behind</SectionHeader>
-<CodeBlock className="language-jsx">{${componentPascalName}}</CodeBlock>
+<CodeBlock className="language-jsx">{${componentName}}</CodeBlock>
 `;
 
-  const file = `${cwd()}/${componentName}.md`;
+  const file = `${docPath}/${compId}.md`;
 
   fs.writeFile(file, content, (err) => {
     if (err) {
@@ -88,7 +97,7 @@ ${parseTypes(comp)}
 
 program
   .alias("rn")
-  .argument("<name>", "component name")
-  .action((name) => generateAction(name));
+  .argument("<compId>", "component id")
+  .action((compId) => generateAction(compId));
 
 program.parse();
