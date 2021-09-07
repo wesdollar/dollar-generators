@@ -4,11 +4,12 @@ const program = new Command();
 const { startCase } = require("lodash");
 const util = require("util");
 const docgen = require("react-docgen-typescript");
-const fs = require("fs");
-const log = console.log;
+const file = require("fs");
 const chalk = require("chalk");
 const { cwd: processCWD } = require("process");
 const path = require("path");
+const { makeDirectory } = require("./helpers/make-directory");
+const { writeFile } = require("./helpers/write-file");
 
 const parseTypes = (docs) => {
   let defaultValue, propDescription, propName, required, type;
@@ -76,15 +77,7 @@ const generateAction = (compId) => {
   const getComponentDescription = (docs) => docs.description;
   const componentName = comp.displayName;
 
-  if (!fs.existsSync(`${installDirectory}`)) {
-    fs.mkdirSync(installDirectory, { recursive: true }, (err) => {
-      if (err) {
-        return console.error("could not create directory ", installDirectory);
-      }
-
-      log(chalk.blue(`created ${directory}`));
-    });
-  }
+  makeDirectory(installDirectory);
 
   const relativeSrcPath = path.relative(installDirectory, docsSrc);
   const relativeCompPath = path.relative(installDirectory, compId);
@@ -126,14 +119,7 @@ ${parseTypes(comp)}
     ".md"
   )}`;
 
-  fs.writeFile(fullCreateFilePath, content, (err) => {
-    if (err) {
-      log(chalk.red(`could not create ${fullCreateFilePath}`));
-      return log(chalk.yellow(err));
-    }
-
-    return log(chalk.blue(`created ${fullCreateFilePath}`));
-  });
+  writeFile(fullCreateFilePath, content);
 };
 
 program
