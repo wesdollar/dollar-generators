@@ -21,7 +21,7 @@ const parseTypes = (docs) => {
     propDescription = docs.props[prop].description;
     propName = docs.props[prop].name;
     required = docs.props[prop].required ? "" : "?";
-    type = docs.props[prop].type.name.replace("|", "\\");
+    type = docs.props[prop].type.name.replaceAll("|", "\\");
 
     returns.push(
       // prettier-ignore
