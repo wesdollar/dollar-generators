@@ -11,7 +11,7 @@ const { cwd } = require("process");
 const path = require("path");
 
 const generateAction = (compId) => {
-  const docPath = `./docs`;
+  const docPath = `./docs/docs`;
 
   const options = {
     savePropValueAsString: true,
