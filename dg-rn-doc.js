@@ -15,15 +15,17 @@ const parseTypes = (docs) => {
   const returns = [];
 
   for (const [prop] of Object.entries(docs.props)) {
-    defaultValue = docs.props[prop].defaultValue;
+    defaultValue = docs.props[prop].defaultValue?.value
+      ? docs.props[prop].defaultValue?.value
+      : "";
     propDescription = docs.props[prop].description;
     propName = docs.props[prop].name;
-    required = docs.props[prop].required;
+    required = docs.props[prop].required ? "?" : "";
     type = docs.props[prop].type.name.replace("|", "\\");
 
     returns.push(
       // prettier-ignore
-      `| \`${propName}\`  | \`${type}\` | ${propDescription} | ${defaultValue} |
+      `| \`${propName}${required && "?"}\`  | \`${type}\` | ${propDescription} | ${defaultValue} |
 `
     );
   }
@@ -69,7 +71,7 @@ const generateAction = (compId) => {
   );
 
   // TODO: remove console.log
-  // return console.log(util.inspect(comp, false, null, true));
+  // console.log(util.inspect(comp, false, null, true));
 
   const getComponentDescription = (docs) => docs.description;
   const componentName = comp.displayName;
