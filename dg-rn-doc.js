@@ -20,7 +20,7 @@ const parseTypes = (docs) => {
       : "";
     propDescription = docs.props[prop].description;
     propName = docs.props[prop].name;
-    required = docs.props[prop].required ? "?" : "";
+    required = docs.props[prop].required ? "" : "?";
     type = docs.props[prop].type.name.replace("|", "\\");
 
     returns.push(
