@@ -1,15 +1,13 @@
 #!/usr/bin/env node
-const { Command } = require("commander");
+import { Command } from "commander";
+import { startCase } from "lodash";
+import { parse } from "react-docgen-typescript";
+import { cwd as processCWD } from "process";
+import { relative } from "path";
+import { makeDirectory } from "./helpers/make-directory";
+import { writeFile } from "./helpers/write-file";
+
 const program = new Command();
-const { startCase } = require("lodash");
-const util = require("util");
-const docgen = require("react-docgen-typescript");
-const file = require("fs");
-const chalk = require("chalk");
-const { cwd: processCWD } = require("process");
-const path = require("path");
-const { makeDirectory } = require("./helpers/make-directory");
-const { writeFile } = require("./helpers/write-file");
 
 const parseTypes = (docs) => {
   let defaultValue, propDescription, propName, required, type;
@@ -66,21 +64,14 @@ const generateAction = (compId) => {
     savePropValueAsString: true,
   };
 
-  const [comp] = docgen.parse(
-    `${compId}/${getComponentFileName(compId)}`,
-    options
-  );
-
-  // TODO: remove console.log
-  // console.log(util.inspect(comp, false, null, true));
-
+  const [comp] = parse(`${compId}/${getComponentFileName(compId)}`, options);
   const getComponentDescription = (docs) => docs.description;
   const componentName = comp.displayName;
 
   makeDirectory(installDirectory);
 
-  const relativeSrcPath = path.relative(installDirectory, docsSrc);
-  const relativeCompPath = path.relative(installDirectory, compId);
+  const relativeSrcPath = relative(installDirectory, docsSrc);
+  const relativeCompPath = relative(installDirectory, compId);
 
   const content = `---
 sidebar_label: "${startCase(componentName)}"
@@ -119,7 +110,7 @@ ${parseTypes(comp)}
     ".md"
   )}`;
 
-  writeFile(fullCreateFilePath, content);
+  writeFile({ fullCreateFilePath, content });
 };
 
 program

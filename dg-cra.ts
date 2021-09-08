@@ -1,22 +1,23 @@
 #!/usr/bin/env node
-const { Command } = require("commander");
+import { Command } from "commander";
+import { spawn } from "child_process";
+import { red, yellow, blue, green } from "chalk";
+import { copyFile as _copyFile, mkdir, readdirSync } from "fs";
+
+const { log } = console;
 const program = new Command();
-const { spawn } = require("child_process");
-const chalk = require("chalk");
-const log = console.log;
-const path = require("path");
-const fs = require("fs");
 
 const copyFile = (file, destinationFile) => {
-  fs.copyFile(`${file}`, `${destinationFile}`, (err) => {
+  _copyFile(`${file}`, `${destinationFile}`, (err) => {
     if (err) {
       log("");
-      log(chalk.red(`could not create ${file}`));
-      log(chalk.yellow(err));
+      log(red(`could not create ${file}`));
+      log(yellow(err));
 
       return false;
     }
-    return log(chalk.blue(`created ${destinationFile}`));
+
+    return log(blue(`created ${destinationFile}`));
   });
 };
 
@@ -27,18 +28,18 @@ const doTheThings = (options, project) => {
   const modulePath = module.path;
   const expressStorage = `${modulePath}/files/express`;
 
-  fs.mkdir(`${installPath}/${project}/.vscode`, { recursive: true }, (err) => {
+  mkdir(`${installPath}/${project}/.vscode`, { recursive: true }, (err) => {
     if (err) {
       log("");
-      log(chalk.red("could not create directory"));
-      log(chalk.yellow(err));
+      log(red("could not create directory"));
+      log(yellow(err));
 
       return;
     }
 
     log("");
 
-    const vsFiles = fs.readdirSync(`${expressStorage}/.vscode`);
+    const vsFiles = readdirSync(`${expressStorage}/.vscode`);
 
     vsFiles.forEach((vsFile) => {
       copyFile(
@@ -52,19 +53,21 @@ const doTheThings = (options, project) => {
 const spawnCRA = (options, project) => {
   const cmd = spawn("npx", ["create-react-app", project]);
 
-  log(chalk.blue(`initiating create react app`));
+  log(blue(`initiating create react app`));
   log();
 
   cmd.stdout.on("data", (data) => {
-    log(chalk.green(data));
+    log(green(data));
   });
 
   cmd.stderr.on("data", (data) => {
-    log(chalk.red(`error: ${data}`));
+    log(red(`error: ${data}`));
   });
 
   cmd.on("close", (code) => {
-    if (code !== 0) return;
+    if (code !== 0) {
+      return;
+    }
 
     doTheThings(options, project);
   });

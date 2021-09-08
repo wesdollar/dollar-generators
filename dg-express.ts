@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-const { Command } = require("commander");
+import { Command } from "commander";
+import { exec } from "child_process";
+import { red, yellow, blue, white } from "chalk";
+import { copyFile as _copyFile, mkdir, readdirSync } from "fs";
+
+const { log } = console;
 const program = new Command();
-const { exec } = require("child_process");
-const chalk = require("chalk");
-const log = console.log;
-const path = require("path");
-const fs = require("fs");
 
 program.option("-p, --path <path>", "install path");
 program.parse(process.argv);
@@ -24,28 +24,30 @@ const rootDirectories = [
 const publicDirectories = ["public/icons", "public/img", "public/svg"];
 
 const copyFile = (file, destinationFile) => {
-  fs.copyFile(`${file}`, `${destinationFile}`, (err) => {
+  _copyFile(`${file}`, `${destinationFile}`, (err) => {
     if (err) {
       log("");
-      log(chalk.red(`could not create ${file}`));
-      log(chalk.yellow(err));
+      log(red(`could not create ${file}`));
+      log(yellow(err));
 
       return false;
     }
-    return log(chalk.blue(`created ${destinationFile}`));
+
+    return log(blue(`created ${destinationFile}`));
   });
 };
 
 const makeDirectories = (array, installPath) => {
   array.map((directory) => {
-    fs.mkdir(`${installPath}/${directory}`, { recursive: true }, (err) => {
+    mkdir(`${installPath}/${directory}`, { recursive: true }, (err) => {
       if (err) {
         log("");
-        log(chalk.red(err));
-        return log(chalk.red(`could not create directory ${directory}`));
+        log(red(err));
+
+        return log(red(`could not create directory ${directory}`));
       }
 
-      return log(chalk.blue(`created ${installPath}/${directory}`));
+      return log(blue(`created ${installPath}/${directory}`));
     });
   });
 };
@@ -57,23 +59,23 @@ const createServer = () => {
   const modulePath = module.path;
   const expressStorage = `${modulePath}/files/express`;
 
-  const files = fs.readdirSync(`${expressStorage}`);
+  const files = readdirSync(`${expressStorage}`);
 
-  fs.mkdir(`${installPath}/.vscode`, { recursive: true }, (err) => {
+  mkdir(`${installPath}/.vscode`, { recursive: true }, (err) => {
     if (err) {
       log("");
-      log(chalk.red("could not create directory"));
-      log(chalk.yellow(err));
+      log(red("could not create directory"));
+      log(yellow(err));
 
       return;
     }
 
     log("");
-    log(chalk.blue("install destination created"));
+    log(blue("install destination created"));
 
     files.forEach((file) => {
       if (file === ".vscode") {
-        const vsFiles = fs.readdirSync(`${expressStorage}/.vscode`);
+        const vsFiles = readdirSync(`${expressStorage}/.vscode`);
 
         vsFiles.forEach((vsFile) => {
           copyFile(
@@ -83,16 +85,16 @@ const createServer = () => {
         });
       } else {
         if (file === "package.json") {
-          fs.copyFile(
+          _copyFile(
             `${expressStorage}/${file}`,
             `${installPath}/${file}`,
             (err) => {
               if (err) {
-                ("could not create package.json");
+                log(red("could not create package.json"));
               }
 
               log("");
-              log(chalk.white(`installing node packages...`));
+              log(white(`installing node packages...`));
               log("");
 
               exec(
@@ -102,10 +104,10 @@ const createServer = () => {
                 },
                 (err) => {
                   if (err) {
-                    log(chalk.red("could not install packages"));
+                    log(red("could not install packages"));
                   }
 
-                  log(chalk.blue("npm packages installed successfully"));
+                  log(blue("npm packages installed successfully"));
                 }
               );
             }

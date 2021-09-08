@@ -1,10 +1,12 @@
 #!/usr/bin/env node
-const { Command } = require("commander");
+import { Command } from "commander";
+import { capitalize, lowerCase } from "lodash";
+import { red, yellow, blue } from "chalk";
+import { mkdirSync, writeFile } from "fs";
+import { cwd } from "process";
+
+const { log } = console;
 const program = new Command();
-const { capitalize, lowerCase } = require("lodash");
-const chalk = require("chalk");
-const log = console.log;
-const fs = require("fs");
 
 program
   .argument("<name>", "component name")
@@ -25,20 +27,19 @@ ${name}.defaultProps = {};
 `;
 
     name = lowerCase(name);
-    const installPath = options.path
-      ? `${__dirname}/${options.path}`
-      : `${__dirname}`;
+    const installPath = options.path ? `${cwd()}/${options.path}` : `${cwd()}`;
     const file = `${installPath}/${name}.jsx`;
 
-    fs.mkdirSync(installPath, { recursive: true });
+    mkdirSync(installPath, { recursive: true });
 
-    fs.writeFile(`${file}`, content, (err) => {
+    writeFile(`${file}`, content, (err) => {
       if (err) {
-        log(chalk.red(`could not create component`));
-        return log(chalk.yellow(err));
+        log(red(`could not create component`));
+
+        return log(yellow(err));
       }
 
-      return log(chalk.blue(`created ${name}.jsx component`));
+      return log(blue(`created ${name}.jsx component`));
     });
   });
 

@@ -1,6 +1,8 @@
 #!/usr/bin/env node
-const { program } = require("commander");
-const { version, description } = require("./package.json");
+import { program } from "commander";
+import * as config from "./package.json";
+
+const { version, description } = config;
 
 program
   .version(version)
