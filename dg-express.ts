@@ -19,7 +19,9 @@ const rootDirectories = [
   "helpers",
   "middleware",
   "routes",
+  ".yarn",
   "public",
+  "src",
 ];
 
 const publicDirectories = ["public/icons", "public/img", "public/svg"];
@@ -88,6 +90,15 @@ const createServer = () => {
           copyFile(
             `${expressStorage}/.vscode/${vsFile}`,
             `${installPath}/.vscode/${vsFile}`
+          );
+        });
+      } else if (file === "src") {
+        const exFiles = readdirSync(`${expressStorage}/src`);
+
+        exFiles.forEach((file) => {
+          copyFile(
+            `${expressStorage}/src/${file}`,
+            `${installPath}/src/${file}`
           );
         });
       } else {

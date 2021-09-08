@@ -57,6 +57,16 @@
     "editor.formatOnPaste": true
   },
   "search.exclude": {
-    "**/*.env": true
+    "**/*.env": true,
+    "node_modules": true,
+    ".eslintignore": true,
+    ".eslintrc": true,
+    ".gitignore": true,
+    ".pnp.cjs": true,
+    ".yarnrc.yml": true,
+    "copy-assets.ts": true,
+    "tsconfig.json": true,
+    "yarn.lock": true,
+    ".vscode": true
   }
 }
