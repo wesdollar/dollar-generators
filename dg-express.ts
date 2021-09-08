@@ -56,8 +56,7 @@ const createServer = () => {
   const installPath = options.path
     ? `${process.cwd()}/${options.path}`
     : process.cwd();
-  const modulePath = module.path;
-  const expressStorage = `${modulePath}/files/express`;
+  const expressStorage = `${__dirname}/files/express`;
 
   const files = readdirSync(`${expressStorage}`);
 
