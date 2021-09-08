@@ -17,7 +17,7 @@ import { View } from "react-native";
 import { ${constantsName} } from "./${kebabCase(componentName)}.constants";
 
 interface ${componentName}Props {
-  children: JSX.Element;
+  children: string;
 }
 
 export const ${componentName} = ({ children }: ${componentName}Props) => {
@@ -53,7 +53,7 @@ const generateComp = (componentName: string): string => {
   return `import * as React from "react";
 import { ${componentName} } from ".";
 
-export const Basic${componentName} = () => <${componentName} />;`;
+export const Basic${componentName} = () => <${componentName}>Hello, World!</${componentName}>;`;
 };
 
 const generateIndex = (componentName: string): string => {
