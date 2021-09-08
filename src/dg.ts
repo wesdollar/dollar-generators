@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { program } from "commander";
-import * as config from "./package.json";
 
-const { version, description } = config;
+const version = "2.0.0";
+const description = "yo momma";
 
 program
   .version(version)

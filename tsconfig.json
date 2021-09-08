@@ -2,11 +2,11 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "rootDir": "./",
+    "rootDir": "src",
     "outDir": "./dist",
     "esModuleInterop": true,
     "moduleResolution": "node",
     "resolveJsonModule": true
   },
-  "exclude": ["files"]
+  "exclude": ["copy-express-files.ts", "files", "express-test"]
 }
