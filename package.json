@@ -1,6 +1,6 @@
 {
   "name": "@dollarcode/dollar-generators",
-  "version": "1.8.12",
+  "version": "2.0.0",
   "description": "generate boilerplates",
   "main": "dist/dg.js",
   "files": [
