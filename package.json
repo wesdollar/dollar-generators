@@ -24,7 +24,8 @@
     "minor": "npm version minor",
     "major": "npm version major",
     "update": "npm i -g @dollarcode/dollar-generators",
-    "build": "tsc --project ./"
+    "build": "tsc --project ./",
+    "patch-publish": "npm run patch && npm run build && npm run publish"
   },
   "author": "Wes Dollar",
   "license": "MIT",
