@@ -14,6 +14,7 @@ Scaffolds for things we do everyday as devs.
 - Create React Native component (with TypeScript & test)
 - Create React component (without TypeScript)
 - Configure VS Code
+- Generate Docusaurus docs
 
 **Express**
 
@@ -31,15 +32,18 @@ Installs in `test` directory inside current working directory (`./tests`)
 
 **React Native**
 
-`dg rn my-component` or `dg react-native my-component`
-Scaffolds out a React Native with TypeScript. The component will be created in a directory of the same name within the current working directory, so be sure to `cd` into the directory you want the new directory to be created in.
+`dg rn cool/story/bro-component` or `dg react-native cool/story/bro-component`
+Scaffolds out a React Native with TypeScript. Command must be ran from the root directory of your project src for all of the magic to happen properly.
 
-The file structure matches the expectations and conventions of Bit.dev. The following files are created:
+The file structure matches the expectations and conventions of Bit.dev.
 
-- index.ts
-- my-component.tsx
-- my-component.spec.tsx
-- my-component.composition.tsx
+Running the example command above with create the following files:
+
+- ./cool/story/bro-component/index.ts
+- ./cool/story/bro-component/bro-component.tsx
+- ./cool/story/bro-component/bro-component.spec.tsx
+- ./cool/story/bro-component/bro-component.composition.tsx
+- ./cool/story/bro-component/bro-component.constants.ts
 
 **React**
 
@@ -56,6 +60,18 @@ Creates React component without TypeScript
 <br />
 
 Pass desired component name as second argument.
+
+**Docusaurus Docs**
+
+`dg rn-doc cool/story/bro-component`
+Generates doc file for React components that are using TypeScript. The generator assumes Docusaurus is installed in a `docs` directory right off project root. There is currently no config that allows the use of a different directory.
+
+The doc generator also assumes you're following the naming convention outlined in the React Native section, which is to say you must have the following two files:
+
+- `bro-component.tsx`
+- `bro-component.composition.tsx`
+
+If you're unfamiliar with the composition pattern, run the React Native command just to see the file structure and how the composition file is implemented and used in the spec file. As an added bonus, composition files help to self-document the code by clearly showing how the component should be used.
 
 **Configure VS Code**
 
