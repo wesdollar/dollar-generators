@@ -3,6 +3,7 @@ import { Command } from "commander";
 import { exec } from "child_process";
 import { red, yellow, blue, white } from "chalk";
 import { copyFile as _copyFile, mkdir, readdirSync } from "fs";
+import { chdir } from "process";
 
 const { log } = console;
 const program = new Command();
@@ -56,7 +57,14 @@ const createServer = () => {
   const installPath = options.path
     ? `${process.cwd()}/${options.path}`
     : process.cwd();
-  const expressStorage = `${__dirname}/files/express`;
+  let modulePath = module.path;
+
+  chdir(modulePath);
+  chdir("../");
+
+  modulePath = process.cwd();
+
+  const expressStorage = `${modulePath}/files/express`;
 
   const files = readdirSync(`${expressStorage}`);
 
