@@ -9,6 +9,6 @@
     "resolveJsonModule": true
   },
   "exclude": [
-    "./*.ts"
+    "./*.ts", "files", "copy-express-files.ts"
   ]
 }

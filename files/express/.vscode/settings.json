@@ -67,6 +67,7 @@
     "copy-assets.ts": true,
     "tsconfig.json": true,
     "yarn.lock": true,
-    ".vscode": true
+    ".vscode": true,
+    "dist": true
   }
 }
