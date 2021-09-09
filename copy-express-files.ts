@@ -10,3 +10,13 @@ fs.copy("files", "dist/files", (err) => {
   // eslint-disable-next-line no-console
   return console.log(blue("files copied successfully"));
 });
+
+fs.copy("package.json", "dist/package.json", (err) => {
+  if (err) {
+    // eslint-disable-next-line no-console
+    return console.error(red(err));
+  }
+
+  // eslint-disable-next-line no-console
+  return console.log(blue("files copied successfully"));
+});
