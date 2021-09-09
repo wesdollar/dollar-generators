@@ -1,6 +1,6 @@
 {
   "name": "@dollarcode/dollar-generators",
-  "version": "2.0.18",
+  "version": "2.0.16",
   "description": "generate boilerplates",
   "main": "dist/dg.js",
   "bin": {
@@ -72,8 +72,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/wesdollar/dollar-generators.git"
-  },
-  "files": [
-    "dist"
-  ]
+  }
 }
