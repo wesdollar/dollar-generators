@@ -24,11 +24,11 @@ Scaffolds for things we do everyday as devs.
 
 <br />
 
-`dg express`<br />
-Installs in current working directory (`./`)
+`dg express my-project`<br />
+Installs Express service with TypeScript. The above example would install in the directory `./my-project`.
 
-`dg express -p test`<br />
-Installs in `test` directory inside current working directory (`./tests`)
+`dg express my-project -p test`<br />
+Installs Express in `test` directory. The above example would install in the directory `./tests/my-project`.
 
 **React Native**
 

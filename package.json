@@ -16,13 +16,12 @@
     "update": "npm i -g @dollarcode/dollar-generators",
     "patch-publish": "npm run patch && npm run build && npm run publish",
     "clean": "rimraf dist/*",
-    "clean-yarn": "rimraf dist/files/express/.yarn",
     "tsc": "tsc",
     "dev:start": "npm-run-all build",
     "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "copy-assets": "ts-node copy-express-files",
-    "build": "npm-run-all clean tsc copy-assets clean-yarn"
+    "build": "npm-run-all clean tsc copy-assets"
   },
   "author": "Wes Dollar",
   "license": "MIT",
