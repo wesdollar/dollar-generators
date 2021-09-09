@@ -2,9 +2,9 @@
   "name": "@dollarcode/dollar-generators",
   "version": "2.0.13",
   "description": "generate boilerplates",
-  "main": "dist/dg.js",
+  "main": "dist/src/dg.js",
   "bin": {
-    "dg": "dist/dg.js"
+    "dg": "dist/src/dg.js"
   },
   "dependencies": {
     "chalk": "^4.1.2",

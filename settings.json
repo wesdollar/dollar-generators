@@ -68,6 +68,9 @@
     "tsconfig.json": true,
     "yarn.lock": true,
     ".vscode": true,
-    "dist": true
+    "dist": true,
+    "package-lock.json": true,
+    "package.json": true,
+    "settings.json": true
   }
 }
