@@ -5,7 +5,7 @@ import { copyFiles } from "./helpers/copy-files";
 const program = new Command();
 
 const doTheThings = () => {
-  const installPath = process.cwd();
+  const installPath = `${process.cwd()}/.vscode`;
   const modulePath = __dirname;
   const expressStorage = `${modulePath}/files/express/.vscode`;
 
