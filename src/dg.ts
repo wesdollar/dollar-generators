@@ -2,7 +2,7 @@
 import { program } from "commander";
 
 program
-  .version("1.0.1")
+  .version("%%VERSION%%")
   .description("scaffold files to skip the annoying stuff")
   .command("express", "scaffold express project")
   .command("express-route", "scaffold express route")
