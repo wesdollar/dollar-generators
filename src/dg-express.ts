@@ -5,7 +5,7 @@ import { copyFiles } from "./helpers/copy-files";
 const program = new Command();
 
 program
-  .argument("<name>", "project name")
+  .argument("<name>", "project name (eg: my-cool-project)")
   .option("-p, --path <path>", "install path")
   .action((name, options) => {
     const installPath = options.path
@@ -13,7 +13,7 @@ program
       : process.cwd();
     const modulePath = __dirname;
 
-    copyFiles(`${modulePath}/files/express`, `${installPath}/${name}`);
+    copyFiles(`${modulePath}/files/express`, `${installPath}/${name}`, true);
   });
 
 program.parse();

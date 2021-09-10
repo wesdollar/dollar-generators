@@ -9,5 +9,12 @@
     "resolveJsonModule": true,
     "types": ["node"]
   },
-  "exclude": ["copy-express-files.ts", "files", "express-test", ".yarn", "dist"]
+  "exclude": [
+    "copy-express-files.ts",
+    "files",
+    "express-test",
+    ".yarn",
+    "dist",
+    "test"
+  ]
 }

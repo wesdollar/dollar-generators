@@ -114,7 +114,7 @@ ${parseTypes(comp)}
 };
 
 program
-  .argument("<compId>", "component id")
+  .argument("<compId>", "component id (eg: cool/story-bro)")
   .action((compId) => generateAction(compId));
 
 program.parse();

@@ -88,6 +88,6 @@ ${parseTypes(comp)}
     (0, write_file_1.writeFile)({ fullCreateFilePath, content });
 };
 program
-    .argument("<compId>", "component id")
+    .argument("<compId>", "component id (eg: cool/story-bro)")
     .action((compId) => generateAction(compId));
 program.parse();

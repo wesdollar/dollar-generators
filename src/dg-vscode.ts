@@ -4,7 +4,7 @@ import { copyFiles } from "./helpers/copy-files";
 
 const program = new Command();
 
-const doTheThings = () => {
+const createVscodeDir = () => {
   const installPath = `${process.cwd()}/.vscode`;
   const modulePath = __dirname;
   const expressStorage = `${modulePath}/files/express/.vscode`;
@@ -12,6 +12,19 @@ const doTheThings = () => {
   copyFiles(expressStorage, installPath);
 };
 
+const addLinterFiles = () => {
+  const files = [".eslintignore", ".eslintrc"];
+
+  files.forEach((file) => {
+    const installPath = `${process.cwd()}`;
+    const modulePath = __dirname;
+    const expressStorage = `${modulePath}/files/express/${file}`;
+
+    copyFiles(expressStorage, `${installPath}/${file}`);
+  });
+};
+
 program.parse();
 
-doTheThings();
+createVscodeDir();
+addLinterFiles();

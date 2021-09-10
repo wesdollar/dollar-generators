@@ -83,7 +83,7 @@ const callWriteFile = (file: string, generateFunc: () => void): null => {
 
 program
   .alias("rn")
-  .argument("<componenetId>", "component id")
+  .argument("<componenetId>", "component id (eg: cool/story-bro)")
   .action((componenetId: string) => {
     const componentFilenameNoExt = getComponentFileName(componenetId);
     const componentName = upperFirst(camelCase(componentFilenameNoExt));

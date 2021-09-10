@@ -6,11 +6,14 @@
 
 ### Dollar Generators
 
-Scaffolds for things we do everyday as devs.
+Scaffolds for things we do everyday as devs. Skip the annoying stuff.
+
+> Some commands take in an ID, such as route or component ID. ID's are formatted as `something/cool/my-component`. These commands should always be run from project root.
 
 `npm i -g @dollarcode/dollar-generators`
 
-- Generate an Express service
+- Generate an Express service (with TypeScript)
+- Scaffold Express route
 - Create React Native component (with TypeScript & test)
 - Create React component (without TypeScript)
 - Configure VS Code
@@ -30,6 +33,9 @@ Installs Express service with TypeScript. The above example would install in the
 `dg express my-project -p test`<br />
 Installs Express in `test` directory. The above example would install in the directory `./tests/my-project`.
 
+`dg express-route users/create-user`<br />
+Scaffolds a route file to handle Express `req` and `res`. The above example would create the route file as `./src/routes/users/create-user.ts`
+
 **React Native**
 
 `dg rn cool/story/bro-component` or `dg react-native cool/story/bro-component`
@@ -39,11 +45,11 @@ The file structure matches the expectations and conventions of Bit.dev.
 
 Running the example command above with create the following files:
 
-- ./cool/story/bro-component/index.ts
-- ./cool/story/bro-component/bro-component.tsx
-- ./cool/story/bro-component/bro-component.spec.tsx
-- ./cool/story/bro-component/bro-component.composition.tsx
-- ./cool/story/bro-component/bro-component.constants.ts
+- `./cool/story/bro-component/index.ts`
+- `./cool/story/bro-component/bro-component.tsx`
+- `./cool/story/bro-component/bro-component.spec.tsx`
+- `./cool/story/bro-component/bro-component.composition.tsx`
+- `./cool/story/bro-component/bro-component.constants.ts`
 
 **React**
 
@@ -78,17 +84,29 @@ If you're unfamiliar with the composition pattern, run the React Native command 
 `dg vscode`<br />
 Creates a `.vscode` directory inside the current working directory.
 
+After install, run the following to install Eslint dependencies:
+
+`npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-mdx eslint-plugin-prettier`
+
+Test the Eslint configuration by running:
+
+`npx eslint .`
+
+Eslint will tell if there are any config issues or missing dependencies. Otherwise, it'll tell you which files have errors. Yay for red squigs!
+
 These files are generated:
 
-- `extensions.json` for recommending and blocking extensions
-- `launch.json` to configure node and nodemon debugging
-- `settings.json` configures VS Code settings, including auto-formatting
-- `spellright.dict` dictionary for spellright
+- `./.vscode/extensions.json` for recommending and blocking extensions
+- `./.vscode/launch.json` to configure node and nodemon debugging
+- `./.vscode/settings.json` configures VS Code settings, including auto-formatting
+- `./.vscode/spellright.dict` dictionary for spellright
+- `./.eslintignore`
+- `./.eslintrc`
 
-Alright, now lets talk about the `settings.json`. The settings provided are fairly opinionated in terms of linting and auto-formatting. You can obviously modify these rules however you see fit, but I felt the need to give you a heads up.
+Alright, now lets talk about the settings. The settings provided are fairly opinionated in terms of linting and auto-formatting. You can obviously modify these rules however you see fit, but I felt the need to give you a heads up.
 
 Good news, though – the Prettier config used for auto-formatting is completely stock (ie: default settings). The linting rules, however, are definitely to my personal taste.
 
 ---
 
-More generators coming soon!
+More generators coming soon! Be sure to update frequently for all the latest generators and features.
