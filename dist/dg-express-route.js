@@ -2,9 +2,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const commander_1 = require("commander");
-const createRouteFile_1 = require("./createRouteFile");
+const create_route_file_1 = require("./helpers/create-route-file");
 const program = new commander_1.Command();
 program
-    .argument("<routeId>", "route id (eg: users/update-user)")
-    .action((routeId) => (0, createRouteFile_1.createRouteFile)(routeId));
+  .argument("<routeId>", "route id (eg: users/update-user)")
+  .action((routeId) => (0, create_route_file_1.createRouteFile)(routeId));
 program.parse();

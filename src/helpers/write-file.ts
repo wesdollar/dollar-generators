@@ -9,17 +9,12 @@ export interface Filename {
 }
 
 /** writes a file to the specific path & filename */
-export const writeFile = ({ fullCreateFilePath, content }: Filename): null => {
-  fs.writeFile(fullCreateFilePath, content, (err: any) => {
-    if (err) {
-      log(`could not create ${fullCreateFilePath}`, "error");
-      log(err, "warning");
+export const writeFile = ({ fullCreateFilePath, content }: Filename): void => {
+  try {
+    fs.writeFileSync(fullCreateFilePath, content);
 
-      return null;
-    }
-
-    return log(`created ${fullCreateFilePath}`, "success");
-  });
-
-  return null;
+    log(`created ${fullCreateFilePath}`, "success");
+  } catch (error) {
+    log(`failed to create ${fullCreateFilePath}`, "error");
+  }
 };

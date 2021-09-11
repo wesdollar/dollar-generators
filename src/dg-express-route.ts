@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-import { createRouteFile } from "./helpers/create-route-file";
+import { createRouteFile } from "./helpers/express-resources/create-route-file";
 
 const program = new Command();
 

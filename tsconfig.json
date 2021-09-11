@@ -16,6 +16,7 @@
     "express-test",
     ".yarn",
     "dist",
-    "test"
+    "test",
+    "jest.config.ts"
   ]
 }

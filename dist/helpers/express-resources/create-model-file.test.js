@@ -1,27 +1,18 @@
-import { writeFile } from "../../helpers/write-file";
-// eslint-disable-next-line no-unused-vars
-import { cwd } from "process";
-import { createModelFile } from "./create-model-file";
-import { makeDirectory } from "../make-directory";
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const write_file_1 = require("../../helpers/write-file");
+const create_model_file_1 = require("./create-model-file");
 jest.mock("process", () => ({
-  cwd: jest.fn().mockReturnValue(""),
+  cwd: jest.fn().mockReturnValue("dollar"),
 }));
-
 jest.mock("../../helpers/write-file", () => ({
   writeFile: jest.fn(),
 }));
-
-jest.mock("../make-directory", () => ({
-  makeDirectory: jest.fn(),
-}));
-
 const resourceId = "dollars";
 const dbMethod = "Create";
 const modelName = "Dollar";
 const method = "create";
 const propsString = "name, pin";
-
 const content = `import { db${dbMethod} } from "../db-helpers/db-${method}";
 import { ${modelName}Input } from "../types";
 
@@ -34,16 +25,12 @@ export const ${`${method}${modelName}`} = async ({ ${propsString} }: ${modelName
   return ${modelName} ? true : false;
 };
 `;
-
 const props = ["name:string", "pin:number"];
-
 test("writes file appropriately", () => {
-  createModelFile("dollars", "create", props);
-
+  (0, create_model_file_1.createModelFile)("dollars", "create", props);
   const obj = {
-    fullCreateFilePath: `/src/${resourceId}/${method}-${resourceId}.ts`,
+    fullCreateFilePath: `dollar/src/${resourceId}/${method}-${resourceId}.ts`,
     content,
   };
-
-  expect(writeFile).toBeCalledWith(obj);
+  expect(write_file_1.writeFile).toBeCalledWith(obj);
 });

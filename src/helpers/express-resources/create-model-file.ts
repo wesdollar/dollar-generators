@@ -3,6 +3,7 @@ import { writeFile } from "../../helpers/write-file";
 import { cwd } from "process";
 import { getPropString } from "./get-prop-string";
 import { getModelName } from "./get-model-name";
+import { makeDirectory } from "../make-directory";
 
 export const createModelFile = (
   resourceId: string,
@@ -27,6 +28,8 @@ export const ${`${method}${modelName}`} = async ({ ${propsString} }: ${modelName
   return ${modelName} ? true : false;
 };
 `;
+
+  makeDirectory(`${modelPath}`);
 
   writeFile({
     fullCreateFilePath: `${modelPath}/${method}-${resourceId}.ts`,

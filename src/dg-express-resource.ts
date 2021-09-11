@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-import { blue, red } from "chalk";
-import { createRouteFile } from "./helpers/create-route-file";
-import { exec } from "shelljs";
+import { blue } from "chalk";
+import { createRouteFile } from "./helpers/express-resources/create-route-file";
 import { insertIntoSchema } from "./helpers/express-resources/insert-into-schema";
 import { createModelFile } from "./helpers/express-resources/create-model-file";
 import { addTypeDeclaration } from "./helpers/express-resources/add-type-declaration";
 import { addRoute } from "./helpers/express-resources/add-route";
+import { callUpdateSchema } from "./helpers/express-resources/call-update-schema";
 
 const { log } = console;
 const program = new Command();
@@ -21,22 +21,14 @@ program
     const methods = ["create", "read", "update", "delete"];
 
     methods.forEach((method) => {
-      createRouteFile(`${method}-${resourceId}`, "-route.ts");
+      createRouteFile(`${method}-${resourceId}`, method, "-route.ts");
       createModelFile(resourceId, method, props);
       addTypeDeclaration(resourceId);
-      addRoute(resourceId, method);
       insertIntoSchema(resourceId, props);
+      addRoute(resourceId, method);
     });
 
-    exec("npm run update-db-schema", (err) => {
-      if (err) {
-        // eslint-disable-next-line no-console
-        log(red("updating schema failed"));
-      } else {
-        // eslint-disable-next-line no-console
-        log(blue("schema updated"));
-      }
-    });
+    callUpdateSchema();
 
     log(blue(`created resource ${resourceId}`));
   });
