@@ -37,8 +37,7 @@ test("returns the appropriate content", () => {
   const string = "anything Anything anything";
   fs_extra_1.readFileSync.mockImplementation(() => string);
   (0, insert_into_schema_1.insertIntoSchema)(resourceId, props);
-  const newSchemaRecord = `
-model Dollar {
+  const newSchemaRecord = `model Dollar {
 id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
 name String
 pin Number

@@ -5,9 +5,27 @@ const write_file_1 = require("../write-file");
 const fs_extra_1 = require("fs-extra");
 const process_1 = require("process");
 const addRoute = (resourceId, method) => {
+  let routerMethod;
+  switch (method) {
+    case "create":
+      routerMethod = "post";
+      break;
+    case "read":
+      routerMethod = "get";
+      break;
+    case "update":
+      routerMethod = "put";
+      break;
+    case "delete":
+      routerMethod = "delete";
+      break;
+    default:
+      routerMethod = "get";
+      break;
+  }
   const routesSearchString = "/** end crud routes */";
   const routesPath = `${(0, process_1.cwd)()}/src/routes.ts`;
-  const routeContent = `router.post(
+  const routeContent = `router.${routerMethod}(
   \`/\${apiVersion}/${resourceId}/${method}-${resourceId}\`,
   async (req: Request, res: Response) => createProspectRoute(req, res)
 );

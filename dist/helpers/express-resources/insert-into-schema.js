@@ -21,8 +21,7 @@ const insertIntoSchema = (resourceId, props) => {
     });
     return result;
   };
-  const newSchemaRecord = `
-model ${modelName} {
+  const newSchemaRecord = `model ${modelName} {
 id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
 ${newProps(props).join("\n")}
 }`;

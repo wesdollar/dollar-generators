@@ -23,7 +23,7 @@
     "update-cmd-version": "ts-node update-cmd-version",
     "build": "npm-run-all clean tsc copy-assets",
     "test": "jest --watch",
-    "prepare": "husky install"
+    "commit-test": "jest"
   },
   "author": "Wes Dollar",
   "license": "MIT",
@@ -88,6 +88,7 @@
     "dist"
   ],
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "./*.ts": "eslint --cache --fix",
+    "src/**/*.ts": "eslint --cache --fix"
   }
 }

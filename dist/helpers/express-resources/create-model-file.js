@@ -6,6 +6,7 @@ const write_file_1 = require("../../helpers/write-file");
 const process_1 = require("process");
 const get_prop_string_1 = require("./get-prop-string");
 const get_model_name_1 = require("./get-model-name");
+const make_directory_1 = require("../make-directory");
 const createModelFile = (resourceId, method, props) => {
   /** PascalCase Model name */
   const modelName = (0, get_model_name_1.getModelName)(resourceId);
@@ -24,7 +25,7 @@ export const ${`${method}${modelName}`} = async ({ ${propsString} }: ${modelName
   return ${modelName} ? true : false;
 };
 `;
-  console.log(`${modelPath}/${method}-${resourceId}.ts`);
+  (0, make_directory_1.makeDirectory)(`${modelPath}`);
   (0, write_file_1.writeFile)({
     fullCreateFilePath: `${modelPath}/${method}-${resourceId}.ts`,
     content,
