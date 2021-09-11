@@ -1,4 +1,4 @@
-type FileExt = ".tsx" | ".ts" | ".md" | ".mdx" | "";
+export type FileExt = ".tsx" | ".ts" | "-route.ts" | ".md" | ".mdx" | "";
 
 /** get the filename from the component id */
 export const getComponentFileName = (compId: string, ext?: FileExt): string => {

@@ -6,6 +6,7 @@ program
   .description("scaffold files to skip the annoying stuff")
   .command("express", "scaffold express project")
   .command("express-route", "scaffold express route")
+  .command("express-resource", "generates model resources")
   .command(
     "vscode",
     "configures VS Code with linting, formatting, and other settings"

@@ -4,7 +4,8 @@
     "commonjs": true,
     "es6": true,
     "node": true,
-    "browser": false
+    "browser": false,
+    "jest/globals": true
   },
   "parserOptions": {
     "ecmaFeatures": {
@@ -22,7 +23,7 @@
     "plugin:@typescript-eslint/recommended",
     "eslint:recommended"
   ],
-  "plugins": ["prettier", "@typescript-eslint"],
+  "plugins": ["prettier", "@typescript-eslint", "jest"],
   "rules": {
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
