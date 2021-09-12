@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync } from "fs";
 import { log } from "./log";
 
-const makeDirectory = (directoryPath: string): null => {
+export const makeDirectory = (directoryPath: string): null => {
   if (!existsSync(`${directoryPath}`)) {
     try {
       mkdirSync(directoryPath, { recursive: true });
@@ -17,7 +17,3 @@ const makeDirectory = (directoryPath: string): null => {
 
   return null;
 };
-
-const _makeDirectory = makeDirectory;
-
-export { _makeDirectory as makeDirectory };
