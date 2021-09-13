@@ -2,13 +2,22 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "rootDir": "./src",
-    "outDir": "./dist",
+    "rootDir": "src",
+    "outDir": "dist",
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/29733
+    "lib": ["esnext", "dom"],
+    "types": ["jest", "node"]
   },
   "exclude": [
-    "./*.ts", "files", "copy-express-files.ts"
+    "./*.ts",
+    "files",
+    "copy-express-files.ts",
+    "./node_modules",
+    "dist"
   ]
 }

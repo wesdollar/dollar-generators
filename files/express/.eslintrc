@@ -4,7 +4,8 @@
     "commonjs": true,
     "es6": true,
     "node": true,
-    "browser": false
+    "browser": false,
+    "jest/globals": true
   },
   "parserOptions": {
     "ecmaFeatures": {
@@ -20,10 +21,15 @@
     "plugin:prettier/recommended",
     "plugin:mdx/recommended",
     "plugin:@typescript-eslint/recommended",
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:jest/recommended"
   ],
-  "plugins": ["prettier", "@typescript-eslint"],
+  "plugins": ["@typescript-eslint"],
   "rules": {
+    "@typescript-eslint/ban-ts-comment": [
+      "error",
+      { "ts-ignore": "allow-with-description" }
+    ],
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "prettier/prettier": "error",

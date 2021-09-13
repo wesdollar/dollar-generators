@@ -29,9 +29,7 @@ linting
 ts
 tsx
 Docusaurus
+mongodb
+srv
+pl_db_adm
 dotenv
-npm
-github
-gitignore
-vsc
-vscode
