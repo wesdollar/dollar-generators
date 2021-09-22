@@ -13,6 +13,10 @@ const parseTypes = (docs) => {
   let defaultValue, propDescription, propName, required, type;
   const returns = [];
 
+  if (!Object.entries(docs.props)) {
+    return null;
+  }
+
   for (const [prop] of Object.entries(docs.props)) {
     defaultValue = docs.props[prop].defaultValue?.value
       ? docs.props[prop].defaultValue?.value
@@ -72,6 +76,7 @@ const generateAction = (compId) => {
 
   const relativeSrcPath = relative(installDirectory, docsSrc);
   const relativeCompPath = relative(installDirectory, compId);
+  const props = parseTypes(comp);
 
   const content = `---
 sidebar_label: "${startCase(componentName)}"
@@ -92,11 +97,16 @@ import Basic${componentName} from '!!raw-loader!${relativeCompPath}/${getCompone
 
 ${getComponentDescription(comp)}
 
-<SectionHeader height="0">Props</SectionHeader>
+${
+  Boolean(props) &&
+  `
+  <SectionHeader height="0">Props</SectionHeader>
 
 | Prop Name  | Type           | Description | Default |
 | ---------- | -------------- | ----------- | ------- |
-${parseTypes(comp)}
+${props}
+`
+}
 
 <SectionHeader>Example Composition</SectionHeader>
 <CodeBlock className="language-tsx">{Basic${componentName}}</CodeBlock>

@@ -17,5 +17,4 @@ const makeDirectory = (directoryPath) => {
     }
     return null;
 };
-const _makeDirectory = makeDirectory;
-exports.makeDirectory = _makeDirectory;
+exports.makeDirectory = makeDirectory;

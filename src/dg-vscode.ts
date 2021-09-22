@@ -13,7 +13,12 @@ const createVscodeDir = () => {
 };
 
 const addLinterFiles = () => {
-  const files = [".eslintignore", ".eslintrc"];
+  const files = [
+    ".eslintignore",
+    ".eslintrc",
+    "jest.config.ts",
+    "tsconfig.json",
+  ];
 
   files.forEach((file) => {
     const installPath = `${process.cwd()}`;

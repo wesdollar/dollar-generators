@@ -3,13 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const write_file_1 = require("../../helpers/write-file");
 const create_model_file_1 = require("./create-model-file");
 jest.mock("process", () => ({
-  cwd: jest.fn().mockReturnValue(""),
+    cwd: jest.fn().mockReturnValue(""),
 }));
 jest.mock("../../helpers/write-file", () => ({
-  writeFile: jest.fn(),
+    writeFile: jest.fn(),
 }));
 jest.mock("../make-directory", () => ({
-  makeDirectory: jest.fn(),
+    makeDirectory: jest.fn(),
 }));
 const resourceId = "dollars";
 const dbMethod = "Create";
@@ -30,10 +30,10 @@ export const ${`${method}${modelName}`} = async ({ ${propsString} }: ${modelName
 `;
 const props = ["name:string", "pin:number"];
 test("writes file appropriately", () => {
-  (0, create_model_file_1.createModelFile)("dollars", "create", props);
-  const obj = {
-    fullCreateFilePath: `/src/${resourceId}/${method}-${resourceId}.ts`,
-    content,
-  };
-  expect(write_file_1.writeFile).toBeCalledWith(obj);
+    (0, create_model_file_1.createModelFile)("dollars", "create", props);
+    const obj = {
+        fullCreateFilePath: `/src/${resourceId}/${method}-${resourceId}.ts`,
+        content,
+    };
+    expect(write_file_1.writeFile).toBeCalledWith(obj);
 });
