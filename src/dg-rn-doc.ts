@@ -6,6 +6,7 @@ import { cwd as processCWD } from "process";
 import { relative } from "path";
 import { makeDirectory } from "./helpers/make-directory";
 import { writeFile } from "./helpers/write-file";
+import { red } from "chalk";
 
 const program = new Command();
 
@@ -69,7 +70,15 @@ const generateAction = (compId) => {
   };
 
   const [comp] = parse(`${compId}/${getComponentFileName(compId)}`, options);
+
+  if (!comp) {
+    return console.log(
+      red(`could not create doc for ${compId}/${getComponentFileName(compId)}`)
+    );
+  }
+
   const getComponentDescription = (docs) => docs.description;
+
   const componentName = comp.displayName;
 
   makeDirectory(installDirectory);
