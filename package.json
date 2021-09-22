@@ -10,7 +10,7 @@
     "develop": "npm run dev",
     "publish": "npm publish --access public",
     "bump": "npm version patch",
-    "patch": "npm version patch && npm run update-cmd-version",
+    "patch": "npm version patch && npm run update-cmd-version  && npm run build",
     "minor": "npm version minor && npm run update-cmd-version",
     "major": "npm version major && npm run update-cmd-version",
     "update": "npm i -g @dollarcode/dollar-generators",
@@ -22,7 +22,7 @@
     "copy-assets": "ts-node copy-express-files",
     "update-version": "ts-node update-cmd-version",
     "update-cmd-version": "ts-node update-cmd-version",
-    "build": "npm-run-all clean tsc copy-assets update-version",
+    "build": "npm-run-all clean tsc copy-assets",
     "test": "jest --watch",
     "commit-test": "jest"
   },
