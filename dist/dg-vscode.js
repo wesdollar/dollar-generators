@@ -11,7 +11,12 @@ const createVscodeDir = () => {
     (0, copy_files_1.copyFiles)(expressStorage, installPath);
 };
 const addLinterFiles = () => {
-    const files = [".eslintignore", ".eslintrc"];
+    const files = [
+        ".eslintignore",
+        ".eslintrc",
+        "jest.config.ts",
+        "tsconfig.json",
+    ];
     files.forEach((file) => {
         const installPath = `${process.cwd()}`;
         const modulePath = __dirname;

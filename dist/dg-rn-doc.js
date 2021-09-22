@@ -8,11 +8,15 @@ const process_1 = require("process");
 const path_1 = require("path");
 const make_directory_1 = require("./helpers/make-directory");
 const write_file_1 = require("./helpers/write-file");
+const chalk_1 = require("chalk");
 const program = new commander_1.Command();
 const parseTypes = (docs) => {
     var _a, _b;
     let defaultValue, propDescription, propName, required, type;
     const returns = [];
+    if (!Object.entries(docs.props)) {
+        return null;
+    }
     for (const [prop] of Object.entries(docs.props)) {
         defaultValue = ((_a = docs.props[prop].defaultValue) === null || _a === void 0 ? void 0 : _a.value)
             ? (_b = docs.props[prop].defaultValue) === null || _b === void 0 ? void 0 : _b.value
@@ -54,11 +58,15 @@ const generateAction = (compId) => {
         savePropValueAsString: true,
     };
     const [comp] = (0, react_docgen_typescript_1.parse)(`${compId}/${getComponentFileName(compId)}`, options);
+    if (!comp) {
+        return console.log((0, chalk_1.red)(`could not create doc for ${compId}/${getComponentFileName(compId)}`));
+    }
     const getComponentDescription = (docs) => docs.description;
     const componentName = comp.displayName;
     (0, make_directory_1.makeDirectory)(installDirectory);
     const relativeSrcPath = (0, path_1.relative)(installDirectory, docsSrc);
     const relativeCompPath = (0, path_1.relative)(installDirectory, compId);
+    const props = parseTypes(comp);
     const content = `---
 sidebar_label: "${(0, lodash_1.startCase)(componentName)}"
 sidebar_position: 1
@@ -72,11 +80,14 @@ import Basic${componentName} from '!!raw-loader!${relativeCompPath}/${getCompone
 
 ${getComponentDescription(comp)}
 
-<SectionHeader height="0">Props</SectionHeader>
+${Boolean(props) &&
+        `
+  <SectionHeader height="0">Props</SectionHeader>
 
 | Prop Name  | Type           | Description | Default |
 | ---------- | -------------- | ----------- | ------- |
-${parseTypes(comp)}
+${props}
+`}
 
 <SectionHeader>Example Composition</SectionHeader>
 <CodeBlock className="language-tsx">{Basic${componentName}}</CodeBlock>

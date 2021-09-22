@@ -20,8 +20,9 @@
     "dev:start": "npm-run-all build",
     "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
     "copy-assets": "ts-node copy-express-files",
+    "update-version": "ts-node update-cmd-version",
     "update-cmd-version": "ts-node update-cmd-version",
-    "build": "npm-run-all clean tsc copy-assets",
+    "build": "npm-run-all clean tsc copy-assets update-version",
     "test": "jest --watch",
     "commit-test": "jest"
   },
