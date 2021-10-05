@@ -2,6 +2,10 @@ import fs from "fs-extra";
 import { exec } from "child_process";
 import { red, blue } from "chalk";
 import { log } from "./log";
+import * as Spinnies from "spinnies";
+
+const spinnies = new Spinnies.default({ color: "blue" });
+const spinnerId = { express: "express-spinner", yarn: "yarn-spinner" };
 
 /** recursively copies file from source to destination */
 export const copyFiles = async (
@@ -13,27 +17,31 @@ export const copyFiles = async (
   npmInstall?: boolean
 ): Promise<boolean> => {
   try {
+    spinnies.add(spinnerId.express, { text: "Copying Express files..." });
+
     await fs.copy(`${sourceRoot}`, installPath);
 
-    // eslint-disable-next-line no-console
-    console.info(blue(`copied files to ${installPath}`));
+    spinnies.succeed(spinnerId.express, { text: "Express files copied!" });
 
     if (npmInstall) {
-      exec("npm i", { cwd: installPath }, (err) => {
+      exec("yarn install", { cwd: installPath }, (err) => {
+        spinnies.add(spinnerId.yarn, { text: "Running yarn install..." });
+
         if (err) {
-          // eslint-disable-next-line no-console
-          log(red("npm i failed"));
+          spinnies.fail(spinnerId.yarn, { text: "yarn install failed :(" });
         } else {
-          // eslint-disable-next-line no-console
-          log(blue("npm packages installed"));
+          spinnies.succeed(spinnerId.yarn, {
+            text: "yarn install successful!",
+          });
         }
       });
     }
 
     return true;
   } catch (error) {
-    // eslint-disable-next-line no-console
-    log(red(`copy failed with error: ${error}`));
+    spinnies.fail(spinnerId.express, {
+      text: "could not copy express files :(",
+    });
 
     return false;
   }
