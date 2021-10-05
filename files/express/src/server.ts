@@ -1,20 +1,21 @@
 import express from "express";
 import * as dotenvFlow from "dotenv-flow";
-import * as dotenv from "dotenv";
 import cors from "cors";
-import { staticFilesDirectory } from "./constants/static-files-directory";
-import { routes } from "./routes";
+import * as StaticFilesConstants from "./constants/static-files-directory";
+import * as Routes from "./routes";
 
 const app = express();
 
-dotenvFlow.config();
-dotenv.config();
+app.disable("x-powered-by");
+
+dotenvFlow.config({ silent: true });
 
 const router = express.Router();
 const port = process.env.PORT;
+const urlBase = process.env.APP_URL_BASE || "";
 
 /** middleware */
-app.use(express.static(staticFilesDirectory));
+app.use(express.static(StaticFilesConstants.staticFilesDirectory));
 app.use(express.json());
 
 /**
@@ -24,7 +25,7 @@ app.use(express.json());
 app.use(cors());
 
 /** routes */
-app.use(routes());
+app.use(urlBase, Routes.routes());
 
 /** instantiate router */
 app.use("/", router);

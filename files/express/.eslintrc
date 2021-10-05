@@ -17,14 +17,6 @@
   "globals": {
     "strapi": true
   },
-  "extends": [
-    "plugin:prettier/recommended",
-    "plugin:mdx/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "eslint:recommended",
-    "plugin:jest/recommended"
-  ],
-  "plugins": ["@typescript-eslint"],
   "rules": {
     "@typescript-eslint/ban-ts-comment": [
       "error",
@@ -149,7 +141,6 @@
     "no-alert": "error",
     "max-classes-per-file": ["error", 1],
     "curly": "error",
-    "no-console": "warn",
-    "multiline-comment-style": ["error", "starred-block"]
+    "no-console": "warn"
   }
 }

@@ -1,6 +1,0 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-npm run commit-test
-npx pretty-quick --staged
-npx lint-staged

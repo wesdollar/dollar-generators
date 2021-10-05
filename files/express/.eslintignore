@@ -3,3 +3,6 @@ dist
 coverage
 .vscode
 .DS_Store
+*.md
+*.mdx
+docs
