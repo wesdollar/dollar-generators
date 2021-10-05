@@ -22,10 +22,10 @@
     "copy-assets": "ts-node copy-express-files",
     "update-version": "ts-node update-cmd-version",
     "update-cmd-version": "ts-node update-cmd-version",
-    "build": "npm-run-all clean tsc copy-assets update-cmd-version",
+    "build": "run-s clean tsc copy-assets",
     "test": "jest --watch",
     "commit-test": "jest",
-    "pre-publish": "run-s build update-version"
+    "pre-publish": "run-s build"
   },
   "author": "Wes Dollar",
   "license": "MIT",
