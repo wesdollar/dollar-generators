@@ -1,23 +1,26 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
     "rootDir": "src",
     "outDir": "dist",
     "esModuleInterop": true,
-    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "sourceMap": true,
+    "types": ["jest", "node"],
+    "target": "es6",
+    "lib": ["esnext", "dom", "DOM.Iterable"],
+    "module": "commonjs",
     "strict": true,
-    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/29733
-    "lib": ["esnext", "dom"],
-    "types": ["jest", "node"]
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true
   },
   "exclude": [
     "./*.ts",
     "files",
     "copy-express-files.ts",
     "./node_modules",
-    "dist"
+    "dist",
+    "build-docs.ts",
+    "docs/**/*"
   ]
 }

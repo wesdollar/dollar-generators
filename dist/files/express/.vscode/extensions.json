@@ -16,7 +16,9 @@
     "silvenon.mdx",
     "cssho.vscode-svgviewer",
     "ban.spellright",
-    "prisma.prisma"
+    "prisma.prisma",
+    "xyc.vscode-mdx-preview",
+    "nixon.env-cmd-file-syntax"
   ],
   "unwantedRecommendations": []
 }

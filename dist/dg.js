@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const commander_1 = require("commander");
 commander_1.program
-    .version("3.1.5")
+    .version("3.2.0")
     .description("scaffold files to skip the annoying stuff")
     .command("express", "scaffold express project")
     .command("express-route", "scaffold express route")

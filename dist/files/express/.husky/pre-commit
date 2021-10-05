@@ -1,5 +1,7 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run test-build
+yarn orc:test-build
+yarn rn:test-build
+yarn rn:pretty-quick
 npx lint-staged
