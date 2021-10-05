@@ -1,7 +1,5 @@
 import fs from "fs-extra";
 import { exec } from "child_process";
-import { red, blue } from "chalk";
-import { log } from "./log";
 import * as Spinnies from "spinnies";
 
 const spinnies = new Spinnies.default({ color: "blue" });
@@ -24,9 +22,9 @@ export const copyFiles = async (
     spinnies.succeed(spinnerId.express, { text: "Express files copied!" });
 
     if (npmInstall) {
-      exec("yarn install", { cwd: installPath }, (err) => {
-        spinnies.add(spinnerId.yarn, { text: "Running yarn install..." });
+      spinnies.add(spinnerId.yarn, { text: "Running yarn install..." });
 
+      exec("yarn install", { cwd: installPath }, (err) => {
         if (err) {
           spinnies.fail(spinnerId.yarn, { text: "yarn install failed :(" });
         } else {
