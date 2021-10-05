@@ -24,7 +24,8 @@
     "update-cmd-version": "ts-node update-cmd-version",
     "build": "npm-run-all clean tsc copy-assets update-cmd-version",
     "test": "jest --watch",
-    "commit-test": "jest"
+    "commit-test": "jest",
+    "pre-publish": "run-s build update-version"
   },
   "author": "Wes Dollar",
   "license": "MIT",

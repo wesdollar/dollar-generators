@@ -50,8 +50,8 @@ npmInstall) => __awaiter(void 0, void 0, void 0, function* () {
         yield fs_extra_1.default.copy(`${sourceRoot}`, installPath);
         spinnies.succeed(spinnerId.express, { text: "Express files copied!" });
         if (npmInstall) {
+            spinnies.add(spinnerId.yarn, { text: "Running yarn install..." });
             (0, child_process_1.exec)("yarn install", { cwd: installPath }, (err) => {
-                spinnies.add(spinnerId.yarn, { text: "Running yarn install..." });
                 if (err) {
                     spinnies.fail(spinnerId.yarn, { text: "yarn install failed :(" });
                 }
