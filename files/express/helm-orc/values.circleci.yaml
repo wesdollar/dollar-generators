@@ -1,0 +1,12 @@
+# The contents of this file are replaced when the CircleCI workflow runs.
+# Some values are replaced by getting info from the parameter store.
+# Other information is replaced using data available to CircleCI
+
+# These variables comes from a CircleCI Parameter
+deploymentLane: "<< circleciValue.deploymentLane >>"
+namespace: "<< circleciValue.namespace >>"
+commitHash: "<< circleciValue.commitHash >>"
+valuesYaml: "<< circleciValue.valuesYaml >>"
+image:
+  tag: "<< circleciValue.tag >>"
+  repository: "<< circleciValue.aws-ecr-account-url >>/baas-orc"

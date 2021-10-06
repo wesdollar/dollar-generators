@@ -1,0 +1,10 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+ingress:
+  enabled: true
+  hosts:
+    - host: qa-testing.api.prog-research.com
+      paths:
+        - path: "/baas/orchestrator/*"
+        - path: "/baas/orchestrator"

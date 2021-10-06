@@ -10,9 +10,9 @@
     "develop": "npm run dev",
     "publish": "npm publish --access public",
     "bump": "npm version patch",
-    "patch": "npm version patch && npm run update-cmd-version",
-    "minor": "npm version minor && npm run update-cmd-version",
-    "major": "npm version major && npm run update-cmd-version",
+    "patch": "build && npm version patch && npm run update-cmd-version",
+    "minor": "build && npm version minor && npm run update-cmd-version",
+    "major": "build && npm version major && npm run update-cmd-version",
     "update": "npm i -g @dollarcode/dollar-generators",
     "patch-publish": "npm run patch && npm run build && npm run publish",
     "clean": "rimraf dist/*",
@@ -24,8 +24,7 @@
     "update-cmd-version": "ts-node update-cmd-version",
     "build": "run-s clean tsc copy-assets",
     "test": "jest --watch",
-    "commit-test": "jest",
-    "pre-publish": "run-s build"
+    "commit-test": "jest"
   },
   "author": "Wes Dollar",
   "license": "MIT",

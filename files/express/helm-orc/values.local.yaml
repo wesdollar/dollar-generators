@@ -1,0 +1,29 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+localDeployment: true
+
+deploymentLane: local
+valuesYaml: values.local.yaml
+namespace: default
+
+service:
+  type: NodePort
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+      nodePort: 30011
+
+# Ingnore external Secretes - create directly as secrets
+externalSecrets: null
+
+secrets:
+  DATABASE_URL: "Note: pass to helm via --set secrets.DATABASE_URL="
+
+image:
+  repository: baas-orc
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"

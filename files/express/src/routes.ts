@@ -2,8 +2,6 @@
 import express, { Request, Response, Router } from "express";
 import { staticFilesDirectory } from "./constants/static-files-directory";
 
-const apiVersion = "v1";
-
 /** route declarations */
 export const routes = (): Router => {
   const router = express.Router();
