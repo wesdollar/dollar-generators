@@ -1,5 +1,13 @@
 {
   "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:prettier/recommended",
+    "plugin:mdx/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended",
+    "plugin:jest/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "prettier", "jest"],
   "env": {
     "commonjs": true,
     "es6": true,
@@ -25,7 +33,7 @@
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "prettier/prettier": "error",
-    "no-unused-vars": "error",
+    "no-unused-vars": "off",
     "object-shorthand": ["error", "always"],
     "prefer-const": [
       "error",
@@ -141,6 +149,7 @@
     "no-alert": "error",
     "max-classes-per-file": ["error", 1],
     "curly": "error",
-    "no-console": "warn"
+    "no-console": "warn",
+    "@typescript-eslint/no-unused-vars": "error"
   }
 }

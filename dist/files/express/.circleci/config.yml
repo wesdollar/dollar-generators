@@ -1,0 +1,202 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+# ----
+orbs:
+  sonarscanner-orb: progfin-ondemand/prog-sonarqube-orb@dev:alpha
+  k8s-orb: progfin-ondemand/k8s-build-deploy@1.10.2
+
+common_defaults: &common_defaults
+  context: aws-sharedservices
+  service-name: orchestrator
+  gitops-repo: "git@bitbucket.org:progfin-ondemand/aws-cluster-config.git"
+  utilities-repo: "git@bitbucket.org:progfin-ondemand/platform.circleci.utils.git"
+
+aws_erc_account_url: &aws_ecr_account_url
+  aws-ecr-account-url: "107887637814.dkr.ecr.us-west-2.amazonaws.com"
+
+prepare_deployment_defaults: &prepare_deployment_defaults
+  tag: "${CIRCLE_SHA1}"
+
+  helm-use-s3: true
+  helm-s3-repo: prog-leasing-helm-charts
+  helm-s3-chart: platform-helm
+  helm-s3-chart-version: "1.1.9"
+
+  aws-parameter-prefix: baas
+  parameter-yaml: values.circleci.yaml
+  helm-directory: helm-orc
+  <<: *common_defaults
+  <<: *aws_ecr_account_url
+
+repo_tag: &repo_tag
+  repo: "baas-orc"
+  tag: "${CIRCLE_SHA1}"
+
+build_image_branches_filter: &build_image_branches_filter
+  filters:
+    branches:
+      only:
+        - pat-dev-ops-playground
+        - develop
+        - main
+
+dev_branches_filter: &dev_branches_filter
+  filters:
+    branches:
+      only:
+        - pat-dev-ops-playground
+
+main_branches_filter: &main_branches_filter
+  filters:
+    branches:
+      only:
+        - develop
+        - main
+
+jobs:
+  generate_coverage_report:
+    docker:
+      - image: cimg/node:14.18.0
+    steps:
+      - checkout
+      - run:
+          name: Output Test Coverage
+          command: |
+            cp src/.npmrc-ci ~/.npmrc
+            yarn install
+            npx jest --coverage
+      - persist_to_workspace:
+          root: /home/circleci/project/
+          paths:
+            - coverage
+
+workflows:
+  # scan-source:
+  #   jobs:
+  #     - sonarscanner-orb/Checkout_Persist_Workspace
+  #     - generate_coverage_report:
+  #         context: aws-sharedservices
+  #         requires:
+  #           - sonarscanner-orb/Checkout_Persist_Workspace
+  #     - sonarscanner-orb/Sonar_Scanner:
+  #         context: aws-sharedservices
+  #         source_directory: "./src"
+  #         exclusions: "**/*.test.ts,**/*.spec.ts,**/__mocks__/*.ts"
+  #         coverage_exclusions: '**/server.ts,**/routes.ts'
+  #         pipeline_number: << pipeline.number >>
+  #         additional_parameters: "-Dsonar.javascript.lcov.reportPaths=**/lcov.info"
+  #         requires:
+  #           - generate_coverage_report
+
+  build-push-image-deploy-and-test:
+    jobs:
+      - k8s-orb/build-push-image:
+          context: aws-sharedservices
+          <<: *repo_tag
+          <<: *aws_ecr_account_url
+          <<: *build_image_branches_filter
+          caching: true
+
+      # ------- Development Lane -----------
+      - k8s-orb/prepare-deployment-branch:
+          name: prepare-deployment-dev
+          <<: *prepare_deployment_defaults
+          <<: *dev_branches_filter
+          namespace: dev-baas
+          deployment-lane: dev
+          values-yaml: values.dev.yaml
+          requires:
+            - k8s-orb/build-push-image
+
+      - k8s-orb/merge-deployment-branch:
+          name: merge-deployment-dev
+          <<: *common_defaults
+          <<: *dev_branches_filter
+          <<: *repo_tag
+          verify-deployment: true
+          namespace: dev-baas
+          deployment-lane: dev
+          requires:
+            - prepare-deployment-dev
+            - k8s-orb/build-push-image
+
+      # ------- QA Lane -----------
+      - k8s-orb/prepare-deployment-branch:
+          name: prepare-deployment-qa
+          <<: *prepare_deployment_defaults
+          <<: *main_branches_filter
+          namespace: qa-baas
+          deployment-lane: qa
+          values-yaml: values.qa.yaml
+          requires:
+            - k8s-orb/build-push-image
+
+      - k8s-orb/merge-deployment-branch:
+          name: merge-deployment-qa
+          <<: *common_defaults
+          <<: *main_branches_filter
+          <<: *repo_tag
+          verify-deployment: true
+          namespace: qa-baas
+          deployment-lane: qa
+          requires:
+            - prepare-deployment-qa
+
+      # ------- Stage Lane -----------
+      - approve_stg:
+          type: approval
+          <<: *main_branches_filter
+          requires:
+            - merge-deployment-qa
+
+      - k8s-orb/prepare-deployment-branch:
+          name: prepare-deployment-stg
+          <<: *prepare_deployment_defaults
+          <<: *main_branches_filter
+          namespace: stg-baas
+          deployment-lane: stg
+          values-yaml: values.stg.yaml
+          requires:
+            - approve_stg
+
+      - k8s-orb/merge-deployment-branch:
+          name: merge-deployment-stg
+          <<: *common_defaults
+          <<: *repo_tag
+          <<: *main_branches_filter
+          # todo: Add verify deployment with prod cluster ingress is configured
+          namespace: stg-baas
+          deployment-lane: stg
+          requires:
+            - prepare-deployment-stg
+            - approve_stg
+
+      # ------- Production Lane -----------
+      - approve_prod:
+          type: approval
+          <<: *main_branches_filter
+          requires:
+            - merge-deployment-stg
+
+      - k8s-orb/prepare-deployment-branch:
+          name: prepare-deployment-prod
+          <<: *prepare_deployment_defaults
+          <<: *main_branches_filter
+          namespace: prod-baas
+          deployment-lane: prod
+          values-yaml: values.prod.yaml
+          requires:
+            - approve_prod
+
+      - k8s-orb/merge-deployment-branch:
+          name: merge-deployment-prod
+          <<: *common_defaults
+          <<: *repo_tag
+          <<: *main_branches_filter
+          # todo: Add verify deployment with prod cluster ingress is configured
+          namespace: prod-baas
+          deployment-lane: prod
+          requires:
+            - prepare-deployment-prod
+            - approve_prod

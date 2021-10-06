@@ -1,0 +1,8 @@
+# NOTE: This file must be committed to the git repo.
+# Do not put any credentials in this file.
+# Create an auth token using Bit.Dev, and set the BIT_DEV_AUTH_TOKEN environment variable.
+# This is used when building the docker image and running SonarQube in CircleCI
+always-auth=true
+@gritbit:registry=https://node.bit.dev
+@teambit:registry=https://node.bit.dev
+//node.bit.dev/:_authToken=${BIT_DEV_AUTH_TOKEN}

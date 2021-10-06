@@ -1,0 +1,14 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+ingress:
+  enabled: true
+  annotations:
+    {
+      alb.ingress.kubernetes.io/group.name: prod-alb,
+    }
+  hosts:
+    - host: stg-testing.api.progleasing.com
+      paths:
+        - path: "/baas/orchestrator/*"
+        - path: "/baas/orchestrator"

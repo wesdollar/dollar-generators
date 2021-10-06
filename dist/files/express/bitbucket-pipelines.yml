@@ -1,0 +1,32 @@
+image: node:14.17.6
+
+definitions:
+  scripts:
+    - script: &BitAuth echo "Adding bit.dev to npm registry...." &&
+        echo "always-auth=true" >> ~/.npmrc &&
+        echo "@gritbit:registry=https://node.bit.dev" >> ~/.npmrc &&
+        echo "@teambit:registry=https://node.bit.dev" >> ~/.npmrc &&
+        echo "//node.bit.dev/:_authToken=${BIT_USER_TOKEN}" >> ~/.npmrc &&
+        cp ~/.npmrc ./ &&
+        echo "Added bit.dev to npm registry!"
+    - script:
+        &Setup git remote set-url origin https://${BITBUCKET_APP_USER}:${BITBUCKET_APP_SECRET}@bitbucket.org/${BITBUCKET_REPO_OWNER}/${BITUCKET_REPO_SLUG} &&
+        echo "Successfully set git user for commiting back to repo." &&
+        yarn install &&
+        export PATH="$(yarn global bin):$PATH" &&
+        echo "Global packages installed!"
+    - script: &Commit git add . &&
+        git commit -m "[skip ci] pipeline commit" &&
+        git push
+
+pipelines:
+  default:
+    - parallel:
+        - step:
+            name: "run build checks"
+            caches:
+              - node
+            script:
+              - *BitAuth
+              - *Setup
+              - yarn build-checks
