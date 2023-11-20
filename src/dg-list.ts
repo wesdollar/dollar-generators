@@ -18,5 +18,6 @@ log(blue(`express-vscode [configure vscode]`));
 log(blue(`react native [react native component w/ TS]`));
 log(blue(`rn-doc [generate RN docs for Docusaurus]`));
 log(blue(`react [react component]`));
+log(blue(`react-ts [react component w/ TS]`));
 log(blue(`cra [new project using Create React Act]`));
 log("");
