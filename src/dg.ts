@@ -17,6 +17,7 @@ program
   .command("rn-doc", "generate RN docs for Docusaurus")
   .alias("rn-docs")
   .command("react", "scaffold react component")
+  .command("react-ts", "scaffold react component w/ TS")
   .command("cra", "Create React App plus goodies")
   .command("list", "list available generators", { isDefault: true });
 
